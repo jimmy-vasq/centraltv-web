@@ -2,22 +2,5 @@
   "version": 2,
   "buildCommand": null,
   "outputDirectory": "public",
-  "routes": [
-    {
-      "src": "/style.css",
-      "dest": "/style.css"
-    },
-    {
-      "src": "/app.js",
-      "dest": "/app.js"
-    },
-    {
-      "src": "/noticias.json",
-      "dest": "/noticias.json"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ]
+  "cleanUrls": true
 }
