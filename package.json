@@ -1,0 +1,10 @@
+{
+  "name": "centraltv-web",
+  "version": "1.0.0",
+  "description": "Central TV - Portal de noticias",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "vercel --prod"
+  }
+}

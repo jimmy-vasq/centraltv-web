@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central TV - Noticias</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📺</text></svg>">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Central TV</h1>
+        <span class="tagline">Tu fuente de información</span>
+      </div>
+      <nav>
+        <button id="btnAdmin" class="btn-admin">⚙️ Admin</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="publicView">
+      <div class="section-header">
+        <h2>Últimas Noticias</h2>
+        <span id="lastUpdate" class="update-badge"></span>
+      </div>
+      <div id="newsGrid" class="news-grid">
+        <p class="loading">Cargando noticias...</p>
+      </div>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="section-header">
+        <h2>Panel de Administración</h2>
+        <button id="btnCloseAdmin" class="btn-close">✕ Cerrar</button>
+      </div>
+      <div class="admin-panel">
+        <div class="admin-tabs">
+          <button class="tab active" data-tab="editor">Editor</button>
+          <button class="tab" data-tab="history">Historial</button>
+        </div>
+        
+        <div id="tab-editor" class="tab-content active">
+          <form id="newsForm">
+            <div class="form-row">
+              <label for="newsDate">Fecha:</label>
+              <input type="date" id="newsDate" required>
+            </div>
+            <div class="form-row">
+              <label for="newsTitle">Título:</label>
+              <input type="text" id="newsTitle" placeholder="Título de la noticia" required>
+            </div>
+            <div class="form-row">
+              <label for="newsCategory">Sección:</label>
+              <input type="text" id="newsCategory" placeholder="Política, Lima, Judicial..." required>
+            </div>
+            <div class="form-row">
+              <label for="newsSummary">Bajada / Resumen:</label>
+              <textarea id="newsSummary" rows="2" placeholder="Resumen breve de la noticia" required></textarea>
+            </div>
+            <div class="form-row">
+              <label for="newsContent">Contenido completo:</label>
+              <textarea id="newsContent" rows="10" placeholder="Redacción completa de la noticia"></textarea>
+            </div>
+            <div class="form-row">
+              <label for="newsTags">Tags (separados por coma):</label>
+              <input type="text" id="newsTags" placeholder="tag1, tag2, tag3">
+            </div>
+            <div class="form-row">
+              <label for="newsSource">Fuente:</label>
+              <input type="text" id="newsSource" placeholder="Ej: RPP, El Comercio">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Publicar Noticia</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="tab-history" class="tab-content">
+          <p>Las noticias se guardan automáticamente en el historial del servidor.</p>
+          <div id="historyList">
+            <p class="loading">Cargando historial...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Central TV &copy; 2026</p>
+    </div>
+  </footer>
+
+  <!-- Modal para ver noticia completa -->
+  <div id="newsModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
