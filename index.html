@@ -21,69 +21,54 @@
   </header>
 
   <main class="container">
+    <!-- ===== VISTA PÚBLICA ===== -->
     <section id="publicView">
       <div class="section-header">
         <h2>Últimas Noticias</h2>
         <span id="lastUpdate" class="update-badge"></span>
       </div>
-      <div id="newsGrid" class="news-grid">
-        <p class="loading">Cargando noticias...</p>
-      </div>
+      <div id="newsGrid" class="news-grid"></div>
     </section>
 
+    <!-- ===== VISTA ADMIN ===== -->
     <section id="adminView" class="hidden">
-      <div class="section-header">
+      <!-- Cabecera admin -->
+      <div class="admin-header">
         <h2>Panel de Administración</h2>
-        <button id="btnCloseAdmin" class="btn-close">✕ Cerrar</button>
+        <div class="admin-header-actions">
+          <span class="news-count" id="newsCount">0 noticias</span>
+          <button id="btnCloseAdmin" class="btn-close">✕ Cerrar</button>
+        </div>
       </div>
-      <div class="admin-panel">
-        <div class="admin-tabs">
-          <button class="tab active" data-tab="editor">Editor</button>
-          <button class="tab" data-tab="history">Historial</button>
-        </div>
-        
-        <div id="tab-editor" class="tab-content active">
-          <form id="newsForm">
-            <div class="form-row">
-              <label for="newsDate">Fecha:</label>
-              <input type="date" id="newsDate" required>
-            </div>
-            <div class="form-row">
-              <label for="newsTitle">Título:</label>
-              <input type="text" id="newsTitle" placeholder="Título de la noticia" required>
-            </div>
-            <div class="form-row">
-              <label for="newsCategory">Sección:</label>
-              <input type="text" id="newsCategory" placeholder="Política, Lima, Judicial..." required>
-            </div>
-            <div class="form-row">
-              <label for="newsSummary">Bajada / Resumen:</label>
-              <textarea id="newsSummary" rows="2" placeholder="Resumen breve de la noticia" required></textarea>
-            </div>
-            <div class="form-row">
-              <label for="newsContent">Contenido completo:</label>
-              <textarea id="newsContent" rows="10" placeholder="Redacción completa de la noticia"></textarea>
-            </div>
-            <div class="form-row">
-              <label for="newsTags">Tags (separados por coma):</label>
-              <input type="text" id="newsTags" placeholder="tag1, tag2, tag3">
-            </div>
-            <div class="form-row">
-              <label for="newsSource">Fuente:</label>
-              <input type="text" id="newsSource" placeholder="Ej: RPP, El Comercio">
-            </div>
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Publicar Noticia</button>
-            </div>
-          </form>
-        </div>
 
-        <div id="tab-history" class="tab-content">
-          <p>Las noticias se guardan automáticamente en el historial del servidor.</p>
-          <div id="historyList">
-            <p class="loading">Cargando historial...</p>
-          </div>
-        </div>
+      <!-- Barra de acciones -->
+      <div class="admin-actions">
+        <button id="btnBuscar" class="btn-buscar">🔍 Buscar noticias</button>
+        <button id="btnRedactar" class="btn-secondary">✏️ Redactar noticia</button>
+      </div>
+
+      <!-- Tabla de noticias admin -->
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th class="col-status"></th>
+              <th class="col-title">Título</th>
+              <th class="col-section">Sección</th>
+              <th class="col-date">Fecha</th>
+              <th class="col-actions">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody">
+            <!-- Generado por JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer admin -->
+      <div class="admin-footer">
+        <span id="adminFooterInfo">Mostrando hasta 20 noticias</span>
+        <span id="adminTotalInfo"></span>
       </div>
     </section>
   </main>
@@ -94,11 +79,53 @@
     </div>
   </footer>
 
-  <!-- Modal para ver noticia completa -->
+  <!-- MODAL: Ver noticia completa -->
   <div id="newsModal" class="modal hidden">
     <div class="modal-content">
       <button class="modal-close">✕</button>
       <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: Redactar / Editar noticia -->
+  <div id="editModal" class="modal hidden">
+    <div class="modal-content modal-edit">
+      <button class="modal-close" id="editModalClose">✕</button>
+      <h3 id="editModalTitle">Redactar noticia</h3>
+      <form id="newsForm">
+        <input type="hidden" id="editId">
+        <div class="form-row">
+          <label for="newsDate">Fecha:</label>
+          <input type="date" id="newsDate" required>
+        </div>
+        <div class="form-row">
+          <label for="newsTitle">Título:</label>
+          <input type="text" id="newsTitle" placeholder="Título de la noticia" required>
+        </div>
+        <div class="form-row">
+          <label for="newsCategory">Sección:</label>
+          <input type="text" id="newsCategory" placeholder="Política, Lima, Judicial..." required>
+        </div>
+        <div class="form-row">
+          <label for="newsSummary">Bajada / Resumen:</label>
+          <textarea id="newsSummary" rows="2" placeholder="Resumen breve" required></textarea>
+        </div>
+        <div class="form-row">
+          <label for="newsContent">Contenido completo:</label>
+          <textarea id="newsContent" rows="8" placeholder="Redacción completa"></textarea>
+        </div>
+        <div class="form-row">
+          <label for="newsTags">Tags (separados por coma):</label>
+          <input type="text" id="newsTags" placeholder="tag1, tag2, tag3">
+        </div>
+        <div class="form-row">
+          <label for="newsSource">Fuente:</label>
+          <input type="text" id="newsSource" placeholder="Ej: RPP, El Comercio">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="btnSaveNews">Guardar noticia</button>
+        </div>
+      </form>
     </div>
   </div>
 
